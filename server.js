@@ -25,7 +25,7 @@ axios.request({
 
         let title = $(element).text();
 
-        //console.log(`${title}\n`);
+        console.log(`${title}\n`);
 
     });
 
@@ -36,6 +36,16 @@ axios.request({
         console.log(`${desc}\n`);
 
     });
+
+    $("span.byline").each((i, element) => {
+
+        let byline = $(element).text();
+
+        console.log(`${byline}\n`);
+
+    });
+
+    
 
 }).catch((err) => {
 
