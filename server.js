@@ -27,13 +27,19 @@ axios.request({
 
         console.log(`TITLE: ${title}\n`);
 
+        console.log(i);
+
     });
 
-    $("p").each((i, element) => {
+    $("div.content").each((i, element) => {
 
-        let desc = $(element).text();
+        let desc = $(element).children("p").text();
+
+        //let desc = $(element).text();
 
         console.log(`DESC: ${desc}\n`);
+
+        console.log(i);
 
     });
 
@@ -42,6 +48,8 @@ axios.request({
         let lenk = $(element).attr("href");
 
         console.log(`LENK: ${lenk}\n`);
+
+        console.log(i);
 
     });
 
