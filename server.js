@@ -6,12 +6,12 @@ const cheerio = require("cheerio");
 
 axios.request({
 
-    url: "https://apnews.com/",
+    url: "https://apnews.com/apf-intlnews",
     method: "GET"
 
 }).then((response) => {
 
-    //console.log(response.data);
+    console.log(response.data);
 
     //Summary - a short summary of the article
 
@@ -25,23 +25,23 @@ axios.request({
 
         let title = $(element).text();
 
-        console.log(`${title}\n`);
+        console.log(`TITLE: ${title}\n`);
 
     });
 
-    $("div.content").each((i, element) => {
+    $("p").each((i, element) => {
 
         let desc = $(element).text();
 
-        console.log(`${desc}\n`);
+        console.log(`DESC: ${desc}\n`);
 
     });
 
-    $("span.byline").each((i, element) => {
+    $("a.headline").each((i, element) => {
 
-        let byline = $(element).text();
+        let lenk = $(element).attr("href");
 
-        console.log(`${byline}\n`);
+        console.log(`LENK: ${lenk}\n`);
 
     });
 
