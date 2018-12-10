@@ -4,6 +4,12 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+let heads = [];
+
+let blurbs = [];
+
+let urls = [];
+
 axios.request({
 
     url: "https://apnews.com/apf-intlnews",
@@ -11,23 +17,17 @@ axios.request({
 
 }).then((response) => {
 
-    console.log(response.data);
-
-    //Summary - a short summary of the article
-
-    //* URL - the url to the original article
-
-    //* Feel free to add more content to your database(photos, bylines, and so on).
-
     const $ = cheerio.load(response.data);
 
     $("h1").each((i, element) => {
 
         let title = $(element).text();
 
-        console.log(`TITLE: ${title}\n`);
+        // console.log(`TITLE: ${title}\n`);
 
-        console.log(i);
+        // console.log(i);
+
+        heads.push(title);
 
     });
 
@@ -35,11 +35,11 @@ axios.request({
 
         let desc = $(element).children("p").text();
 
-        //let desc = $(element).text();
+        // console.log(`DESC: ${desc}\n`);
 
-        console.log(`DESC: ${desc}\n`);
+        // console.log(i);
 
-        console.log(i);
+        blurbs.push(desc);
 
     });
 
@@ -49,11 +49,19 @@ axios.request({
 
         console.log(`LENK: ${lenk}\n`);
 
-        console.log(i);
+        // console.log(i);
+
+        urls.push(lenk);
 
     });
 
-    
+    heads.splice(0, 1);
+
+    console.log(heads.length);
+
+    console.log(blurbs.length);
+
+    console.log(urls.length);
 
 }).catch((err) => {
 
