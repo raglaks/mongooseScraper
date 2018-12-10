@@ -51,7 +51,19 @@ axios.request({
 
         // console.log(i);
 
-        urls.push(lenk);
+        const reg = /\/afs:Content:/g;
+
+        console.log(); 
+
+        if (reg.test(lenk) === true) {
+
+            urls.push("PHOTOS");
+
+        } else {
+
+            urls.push(lenk);
+
+        }
 
     });
 
