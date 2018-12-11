@@ -36,7 +36,7 @@ axios.request({
         scraped.push({
 
             headline: title,
-            url: link,
+            url: `https://apnews.com${link}`,
             desc: blurb
 
         });
