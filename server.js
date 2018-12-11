@@ -23,9 +23,11 @@ axios.request({
 
         let blurb = $(cont).children("p").text();
 
+
         let impDiv = $(element).children("div.CardHeadline");
 
         let head = $(impDiv).children("a.headline");
+        
 
         let link = $(head).attr("href");
 
