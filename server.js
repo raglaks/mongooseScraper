@@ -23,6 +23,12 @@ axios.request({
 
     $("div.FeedCard").each((i, element)=> {
 
+        let elem = $(element).children("a.content-container");
+
+        let cont = $(elem).children("div.content");
+
+        let blurb = $(cont).children("p").text();
+
         let impDiv = $(element).children("div.CardHeadline");
 
         let head = $(impDiv).children("a.headline");
@@ -31,22 +37,24 @@ axios.request({
 
         let title = $(head).children("h1").text();
 
-        console.log(`\nTITLE: ${title}\n\nLINK: ${link}\n`);
+        console.log(`\nTITLE: ${title}\n\nLINK: ${link}\n\nELEM: ${blurb}\n`);
+
+        
 
     });
 
-    //headlines
-    $("h1").each((i, element) => {
+    // //headlines
+    // $("h1").each((i, element) => {
 
-        let title = $(element).text();
+    //     let title = $(element).text();
 
-        // console.log(`TITLE: ${title}\n`);
+    //     // console.log(`TITLE: ${title}\n`);
 
-        // console.log(i);
+    //     // console.log(i);
 
-        heads.push(title);
+    //     heads.push(title);
 
-    });
+    // });
 
     //blurbs
     // $("div.content").each((i, element) => {
@@ -60,31 +68,31 @@ axios.request({
     // });
 
     //links
-    $("a.headline").each((i, element) => {
+    // $("a.headline").each((i, element) => {
 
-        let lenk = $(element).attr("href");
+    //     let lenk = $(element).attr("href");
 
-        //console.log(`LENK: ${lenk}\n`);
+    //     //console.log(`LENK: ${lenk}\n`);
 
-        // console.log(i);
+    //     // console.log(i);
 
-        urls.push(lenk);
+    //     urls.push(lenk);
 
-        // const reg = /\/afs:Content:/g;
+    //     // const reg = /\/afs:Content:/g;
 
-        // if (reg.test(lenk) === true) {
+    //     // if (reg.test(lenk) === true) {
 
-        //     urls.push("PHOTOS");
+    //     //     urls.push("PHOTOS");
 
-        // } else {
+    //     // } else {
 
-        //     urls.push(lenk);
+    //     //     urls.push(lenk);
 
-        // }
+    //     // }
 
-    });
+    // });
 
-    heads.splice(0, 1);
+    // heads.splice(0, 1);
 
     // console.log(`\nHEADLINES (${heads.length}):\n ${heads}`);
 
