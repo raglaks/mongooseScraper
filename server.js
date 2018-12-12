@@ -108,6 +108,16 @@ function mongoEnt(resObj) {
 
 }
 
+app.get("/all", function (req,res) {
+
+    db.Article.find({}).then(function (all) {
+
+        res.json(all);
+
+    });
+
+});
+
 app.listen(PORT, function () {
 
     console.log("App running on port " + PORT + "!");
