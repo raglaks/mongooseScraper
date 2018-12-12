@@ -6,50 +6,106 @@ const cheerio = require("cheerio");
 
 let scraped = [];
 
-axios.request({
+const db = require("./models");
 
-    url: "https://apnews.com/apf-intlnews",
-    method: "GET"
+var PORT = 3000;
 
-}).then((response) => {
+const app = express();
 
-    const $ = cheerio.load(response.data);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
-    $("div.FeedCard").each((i, element)=> {
+mongoose.connect("mongodb://localhost/APscrape", { useNewUrlParser: true });
 
-        let elem = $(element).children("a.content-container");
+//endpoint to scrape AP page
+app.get("/scrape", function (req, res) {
 
-        let cont = $(elem).children("div.content");
+    //acios request to init scrape
+    axios.request({
 
-        let blurb = $(cont).children("p").text();
+        url: "https://apnews.com/apf-intlnews",
+        method: "GET"
+
+    }).then((response) => {
+
+        //load all html data on page with cheerio and save as selector
+        const $ = cheerio.load(response.data);
+
+        //find all corresponding info in correct div
+        $("div.FeedCard").each((i, element) => {
+
+            let elem = $(element).children("a.content-container");
+
+            let cont = $(elem).children("div.content");
+
+            let blurb = $(cont).children("p").text();
 
 
-        let impDiv = $(element).children("div.CardHeadline");
+            let impDiv = $(element).children("div.CardHeadline");
 
-        let head = $(impDiv).children("a.headline");
-        
+            let head = $(impDiv).children("a.headline");
 
-        let link = $(head).attr("href");
 
-        let title = $(head).children("h1").text();
+            let link = $(head).attr("href");
 
-        // console.log(`\nTITLE: ${title}\n\nLINK: ${link}\n\nELEM: ${blurb}\n`);
+            let title = $(head).children("h1").text();
 
-        scraped.push({
+            //error handling to build final obj without garbage entries
+            if (title !== "" && link !== "" && blurb !== "") {
 
-            headline: title,
-            url: `https://apnews.com${link}`,
-            desc: blurb
+                scraped.push({
+
+                    headline: title,
+                    url: `https://apnews.com${link}`,
+                    desc: blurb
+
+                });
+
+            }
 
         });
 
+    }).catch((err) => {
+
+        throw err;
+
+    }).then(() => {
+
+        scraped.forEach(element => {
+
+            let resObj = {};
+
+            resObj.headline = element.headline;
+            resObj.url = element.url;
+            resObj.desc = element.desc;
+
+            mongoEnt(resObj);
+
+        });
+
+        res.send("OK");
+
     });
-
-    console.log(scraped);
-
-}).catch((err) => {
-
-    console.log(err);
 
 });
 
+function mongoEnt(resObj) {
+
+    db.Article.create(resObj).then(function (dbEntries) {
+
+        console.log("SUCCESSFULLY SCRAPED AND SAVED.");
+
+    }).catch(function (err) {
+
+        throw err;
+
+    });
+
+}
+
+app.listen(PORT, function () {
+
+    console.log("App running on port " + PORT + "!");
+
+});
