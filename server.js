@@ -80,11 +80,13 @@ app.get("/scrape", function (req, res) {
             resObj.url = element.url;
             resObj.desc = element.desc;
 
+            console.log(resObj);
+
             mongoEnt(resObj);
 
         });
 
-        res.send("OK");
+        res.send("SUCCESSFULLY SCRAPED AND SAVED.");
 
     });
 
@@ -95,6 +97,8 @@ function mongoEnt(resObj) {
     db.Article.create(resObj).then(function (dbEntries) {
 
         console.log("SUCCESSFULLY SCRAPED AND SAVED.");
+
+        console.log(dbEntries);
 
     }).catch(function (err) {
 
