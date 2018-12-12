@@ -2,11 +2,11 @@
 
     <br>
 
-    <div class="row">
+    <div class="row text-center">
 
         <div class="col-lg-1"></div>
 
-        <div class="col-lg-10 text-center">
+        <div class="col-lg-10">
 
             <h1>MONGOOSE AP SCRAPER</h1>
 
@@ -16,5 +16,27 @@
 
     </div>
 
+    <br>
+
+    <div class="row text-center">
+
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-8">
+
+            {{#each this}}
+
+            <p>{{headline}}: {{url}}
+                {{desc}}
+            </p>
+
+            {{/each}}
+
+        </div>
+
+        <div class="col-lg-2"></div>
+
+
+    </div>
 
 </div>
