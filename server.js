@@ -16,6 +16,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+const exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 mongoose.connect("mongodb://localhost/APscrape", { useNewUrlParser: true });
 
 //endpoint to scrape AP page
@@ -80,8 +85,6 @@ app.get("/scrape", function (req, res) {
             resObj.url = element.url;
             resObj.desc = element.desc;
 
-            console.log(resObj);
-
             mongoEnt(resObj);
 
         });
@@ -96,9 +99,8 @@ function mongoEnt(resObj) {
 
     db.Article.create(resObj).then(function (dbEntries) {
 
+        // console.log(dbEntries);
         console.log("SUCCESSFULLY SCRAPED AND SAVED.");
-
-        console.log(dbEntries);
 
     }).catch(function (err) {
 
@@ -108,11 +110,21 @@ function mongoEnt(resObj) {
 
 }
 
-app.get("/all", function (req,res) {
+app.get("/all", function (req, res) {
 
     db.Article.find({}).then(function (all) {
 
-        res.json(all);
+        if (all.length === 0) {
+
+            res.send("PLEASE HIT SCRAPE ENDPOINT TO VIEW ARTICLES.");
+
+        } else {
+
+            console.log(all);
+            
+            res.render("index", all);
+
+        }
 
     });
 

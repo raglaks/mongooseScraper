@@ -8,7 +8,7 @@
 
         <div class="col-lg-10">
 
-            <h1>MONGOOSE AP SCRAPER</h1>
+            <h1>AP SCRAPER</h1>
 
         </div>
 
@@ -24,11 +24,14 @@
 
         <div class="col-lg-8">
 
-            {{#each this}}
+            {{#each .}}
 
-            <p>{{headline}}: {{url}}
-                {{desc}}
-            </p>
+            {{#if this.headline}}
+                <a href={{url}} target="_blank">{{headline}}</a>
+                <p>{{desc}}<button type="button" class="btn btn-info" id={{_id}}>Comment</button></p>
+                
+            {{/if}}
+            
 
             {{/each}}
 
