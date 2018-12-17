@@ -27,11 +27,12 @@
             {{#each .}}
 
             {{#if this.headline}}
-                <a href={{url}} target="_blank">{{headline}}</a>
-                <p>{{desc}}<button type="button" class="btn btn-info" id={{_id}}>Comment</button></p>
-                
+
+            <a href={{url}} target="_blank">{{headline}}</a>
+            <p>{{desc}}<button type="button" class="btn btn-info" id={{_id}}>Comment</button></p>
+
             {{/if}}
-            
+
 
             {{/each}}
 
@@ -39,6 +40,51 @@
 
         <div class="col-lg-2"></div>
 
+    </div>
+
+    <div id="results-modal" class="modal fade text-center" role="dialog">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h3 class="modal-title"><strong>Who ate this burger?</strong></h3>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <br>
+
+                        <div class="form-group">
+
+                            <textarea class="form-control" id={{_id}} rows="3" placeholder="Comment"></textarea>
+
+                        </div>
+
+                        {{!-- <h3 class="text-danger bg-warning" id="cWarn"></h3> --}}
+
+                        <button type="submit" class="btn btn-primary" id="comment">Submit</button>
+
+                    </form>
+
+                    <br>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
