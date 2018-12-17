@@ -120,8 +120,6 @@ app.get("/all", function (req, res) {
 
         } else {
 
-            console.log(all);
-            
             res.render("index", all);
 
         }
