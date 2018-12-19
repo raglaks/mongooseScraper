@@ -114,8 +114,6 @@ function mongoEnt(resObj) {
 
 app.get("/all", function (req, res) {
 
-    console.log(`SCRAPED IS:`, scraped); 
-
     db.Article.find({}).then(function (all) {
 
         if (all.length === 0) {
@@ -134,7 +132,7 @@ app.get("/all", function (req, res) {
 
 app.get("/delete", function (req, res) {
 
-    db.remove({}, function (deleted) {
+    db.Article.deleteMany({}, function (deleted) {
 
         res.send(deleted);
 
