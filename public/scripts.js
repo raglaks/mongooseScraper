@@ -4,9 +4,17 @@ $(document).ready(function() {
 
         event.preventDefault();
 
-        console.log(event.target.id);
+        let currId = event.target.id;
 
         $("#results-modal").modal("toggle");
+
+        $("#comment").on("click", function(invent, currId) {
+
+            event.preventDefault();
+
+            console.log(currId);
+
+        });
 
     });
 

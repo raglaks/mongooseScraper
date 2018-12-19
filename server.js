@@ -97,12 +97,10 @@ app.get("/scrape", function (req, res) {
 
 function mongoEnt(resObj) {
 
-    console.log(`SCRAPED IS:`, scraped);
-
     db.Article.create(resObj).then(function (dbEntries) {
 
         //console.log(dbEntries);
-        //console.log("SUCCESSFULLY SCRAPED AND SAVED.");
+        console.log("SUCCESSFULLY SCRAPED AND SAVED.");
 
     }).catch(function (err) {
 
