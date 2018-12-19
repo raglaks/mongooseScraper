@@ -128,7 +128,7 @@ app.get("/all", function (req, res) {
 
 });
 
-app.get("/delete", function (req, res) {
+app.get("/darts", function (req, res) {
 
     db.Article.deleteMany({}, function (deleted) {
 
@@ -138,7 +138,19 @@ app.get("/delete", function (req, res) {
 
 });
 
+app.get("/dcomms", function (req, res) {
+
+    db.Comment.deleteMany({}, function (deleted) {
+
+        res.send("ALL COMMENTS CLEARED. HIT SCRAPE ENDPOINT FOR NEW BATCH.");
+
+    });
+
+});
+
 app.post("/comment", function (req, res) {
+
+    //console.log("req.body is: ", req.body);
 
     let commObj = {};
 
@@ -147,7 +159,7 @@ app.post("/comment", function (req, res) {
 
     db.Comment.create({commObj}).then(function (dbComm) {
 
-        return db.Article.findOneAndUpdate({_id: req.body.currId}, {$push: {comments: dbComm._id}}, {new: true});
+        return db.Article.findOneAndUpdate({_id: req.body.article}, {$push: {comments: dbComm._id}}, {new: true});
 
     }).then(function (dbArticles) {
 
@@ -160,6 +172,21 @@ app.post("/comment", function (req, res) {
     });
 
 });
+
+
+app.get("/populated", function(req, res) {
+    
+    db.Article.find({}).populate("Comment").then(function(dbArticles) {
+        
+        res.json(dbArticles);
+
+      }).catch(function(err) {
+        
+        res.json(err);
+
+      });
+
+  });
 
 app.listen(PORT, function () {
 
