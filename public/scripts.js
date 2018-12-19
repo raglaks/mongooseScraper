@@ -8,11 +8,15 @@ $(document).ready(function() {
 
         $("#results-modal").modal("toggle");
 
-        $("#comment").on("click", function(invent, currId) {
+        $("#comment").on("click", function() {
 
             event.preventDefault();
 
-            console.log(currId);
+            let title = $("#title").val().trim();
+
+            let comment = $("#comment").val().trim();
+
+            console.log(title, comment, currId);
 
         });
 
