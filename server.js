@@ -97,10 +97,12 @@ app.get("/scrape", function (req, res) {
 
 function mongoEnt(resObj) {
 
+    console.log(`SCRAPED IS:`, scraped);
+
     db.Article.create(resObj).then(function (dbEntries) {
 
-        // console.log(dbEntries);
-        console.log("SUCCESSFULLY SCRAPED AND SAVED.");
+        //console.log(dbEntries);
+        //console.log("SUCCESSFULLY SCRAPED AND SAVED.");
 
     }).catch(function (err) {
 
@@ -111,6 +113,8 @@ function mongoEnt(resObj) {
 }
 
 app.get("/all", function (req, res) {
+
+    console.log(`SCRAPED IS:`, scraped); 
 
     db.Article.find({}).then(function (all) {
 
@@ -123,6 +127,16 @@ app.get("/all", function (req, res) {
             res.render("index", all);
 
         }
+
+    });
+
+});
+
+app.get("/delete", function (req, res) {
+
+    db.remove({}, function (deleted) {
+
+        res.send(deleted);
 
     });
 
