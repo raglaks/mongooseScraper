@@ -19,10 +19,14 @@ const ArticleSchema = new Schema({
     required: true
   },
   
-  comment: {
-    type: Schema.Types.ObjectId,
-    ref: "Comment"
-  }
+  comments: [
+
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+
+  ]
 
 });
 

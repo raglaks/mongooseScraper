@@ -140,7 +140,24 @@ app.get("/delete", function (req, res) {
 
 app.post("/comment", function (req, res) {
 
-    console.log(req.body);
+    let commObj = {};
+
+    commObj.title = req.body.title;
+    commObj.body = req.body.comment
+
+    db.Comment.create({commObj}).then(function (dbComm) {
+
+        return db.Article.findOneAndUpdate({_id: req.body.currId}, {$push: {comments: dbComm._id}}, {new: true});
+
+    }).then(function (dbArticles) {
+
+        res.json(dbArticles);
+
+    }).catch(function (err) {
+
+        res.json(err);
+
+    });
 
 });
 
