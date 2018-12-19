@@ -22,6 +22,7 @@ $(document).ready(function() {
 
             resObj.title = inTitle;
             resObj.comment = inComment;
+            resObj.article = currId;
 
             $.ajax("/comment", {
 
