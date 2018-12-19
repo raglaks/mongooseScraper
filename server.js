@@ -118,7 +118,7 @@ app.get("/all", function (req, res) {
 
         if (all.length === 0) {
 
-            res.send("PLEASE HIT SCRAPE ENDPOINT TO VIEW ARTICLES.");
+            res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
 
         } else {
 
@@ -134,7 +134,7 @@ app.get("/delete", function (req, res) {
 
     db.Article.deleteMany({}, function (deleted) {
 
-        res.send(deleted);
+        res.send("ALL SCRAPED ARTICLES CLEARED. HIT SCRAPE ENDPOINT FOR NEW BATCH.");
 
     });
 
