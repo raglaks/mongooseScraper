@@ -138,6 +138,12 @@ app.get("/delete", function (req, res) {
 
 });
 
+app.post("/comment", function (req, res) {
+
+    console.log(req.body);
+
+});
+
 app.listen(PORT, function () {
 
     console.log("App running on port " + PORT + "!");

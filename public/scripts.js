@@ -8,15 +8,31 @@ $(document).ready(function() {
 
         $("#results-modal").modal("toggle");
 
-        $("#comment").on("click", function() {
+        $("#sub").on("click", function(event) {
 
             event.preventDefault();
 
-            let title = $("#title").val().trim();
+            let resObj = {};
 
-            let comment = $("#comment").val().trim();
+            let inTitle = $("#title").val().trim();
+
+            let inComment = $("#comment").val().trim();
 
             console.log(title, comment, currId);
+
+            resObj.title = inTitle;
+            resObj.comment = inComment;
+
+            $.ajax("/comment", {
+
+                type: "POST",
+                data: resObj
+
+            }).then(function (data) {
+
+                console.log(data);
+
+            });
 
         });
 
