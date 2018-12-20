@@ -128,6 +128,7 @@ app.get("/all", function (req, res) {
 
 });
 
+//route to delete all articles
 app.get("/darts", function (req, res) {
 
     db.Article.deleteMany({}, function (deleted) {
@@ -138,6 +139,7 @@ app.get("/darts", function (req, res) {
 
 });
 
+//route to delete all comments
 app.get("/dcomms", function (req, res) {
 
     db.Comment.deleteMany({}, function (deleted) {
@@ -148,6 +150,7 @@ app.get("/dcomms", function (req, res) {
 
 });
 
+//post route for saving comments+associating
 app.post("/comment", function (req, res) {
 
     //console.log("req.body is: ", req.body);
@@ -157,9 +160,9 @@ app.post("/comment", function (req, res) {
     commObj.title = req.body.title;
     commObj.body = req.body.comment
 
-    db.Comment.create({commObj}).then(function (dbComm) {
+    db.Comment.create({ commObj }).then(function (dbComm) {
 
-        return db.Article.findOneAndUpdate({_id: req.body.article}, {$push: {comments: dbComm._id}}, {new: true});
+        return db.Article.findOneAndUpdate({ _id: req.body.article }, { $push: { comments: dbComm._id } }, { new: true });
 
     }).then(function (dbArticles) {
 
@@ -173,20 +176,50 @@ app.post("/comment", function (req, res) {
 
 });
 
+//route for populating articles with books
+app.get("/populated", function (req, res) {
 
-app.get("/populated", function(req, res) {
-    
-    db.Article.find({}).populate("Comment").then(function(dbArticles) {
-        
+    db.Article.find({}).populate("Comment").then(function (dbArticles) {
+
         res.json(dbArticles);
 
-      }).catch(function(err) {
-        
+    }).catch(function (err) {
+
         res.json(err);
 
-      });
+    });
 
-  });
+});
+
+//route to view all articles (DEV)
+app.get("/articles", function (req, res) {
+
+    db.Article.find({}).then(function (allArts) {
+
+        res.json(allArts);
+
+    }).catch(function (err) {
+
+        res.json(err);
+
+    });
+
+});
+
+//route to view all comments (DEV)
+app.get("/comms", function (req, res) {
+
+    db.Comment.find({}).then(function (allComms) {
+
+        res.json(allComms);
+
+    }).catch(function (err) {
+
+        res.json(err);
+
+    });
+
+});
 
 app.listen(PORT, function () {
 
