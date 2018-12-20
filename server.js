@@ -120,6 +120,28 @@ app.get("/all", function (req, res) {
 
         } else {
 
+            all.forEach(element => {
+
+                if (element.comments.length !== 0) {
+
+                    let commArr = element.comments
+
+                    commArr.forEach(element => {
+
+                        console.log(element);
+
+                        db.Comment.find({ _id: element }).then(function (comms) {
+
+                            console.log(comms);
+
+                        });
+
+                    });
+
+                }
+
+            });
+
             res.render("index", all);
 
         }
@@ -150,7 +172,7 @@ app.get("/dcomms", function (req, res) {
 
 });
 
-//post route for saving comments+associating
+//post route for saving comments+associating (populating)
 app.post("/comment", function (req, res) {
 
     //console.log("req.body is: ", req.body);
@@ -161,6 +183,8 @@ app.post("/comment", function (req, res) {
     commObj.body = req.body.comment
 
     db.Comment.create({ commObj }).then(function (dbComm) {
+
+        console.log(dbComm);
 
         return db.Article.findOneAndUpdate({ _id: req.body.article }, { $push: { comments: dbComm._id } }, { new: true });
 
