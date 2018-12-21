@@ -177,16 +177,12 @@ app.get("/dcomms", function (req, res) {
 //post route for saving comments+associating (populating)
 app.post("/comment", function (req, res) {
 
-    //console.log("req.body is: ", req.body);
-
     let commObj = {};
 
     commObj.title = req.body.title;
-    commObj.body = req.body.comment
+    commObj.body = req.body.comment;
 
-    db.Comment.create({ commObj }).then(function (dbComm) {
-
-        console.log(dbComm);
+    db.Comment.create(commObj).then(function (dbComm) {
 
         return db.Article.findOneAndUpdate({ _id: req.body.article }, { $push: { comments: dbComm._id } }, { new: true });
 
