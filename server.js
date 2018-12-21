@@ -166,7 +166,7 @@ app.get("/dcomms", function (req, res) {
 
     db.Comment.deleteMany({}, function (deleted) {
 
-        res.send("ALL COMMENTS CLEARED. HIT SCRAPE ENDPOINT FOR NEW BATCH.");
+        res.send("ALL COMMENTS CLEARED.");
 
     });
 
