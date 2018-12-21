@@ -124,15 +124,17 @@ app.get("/all", function (req, res) {
 
                 if (element.comments.length !== 0) {
 
-                    let commArr = element.comments
+                    let commArr = element.comments;
 
                     commArr.forEach(element => {
 
-                        console.log(element);
-
                         db.Comment.find({ _id: element }).then(function (comms) {
 
-                            console.log(comms);
+                            comms.forEach(element => {
+
+                                console.log(`TITLE: ${element.title}\nCOMM: ${element.body}`);
+                                
+                            });
 
                         });
 
