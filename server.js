@@ -153,6 +153,8 @@ app.get("/all", function (req, res) {
 //route to delete all articles
 app.get("/darts", function (req, res) {
 
+    scraped = [];
+
     db.Article.deleteMany({}, function (deleted) {
 
         res.send("ALL SCRAPED ARTICLES CLEARED. HIT SCRAPE ENDPOINT FOR NEW BATCH.");
