@@ -203,9 +203,17 @@ app.post("/comment", function (req, res) {
 //route for populating articles with books
 app.get("/populated", function (req, res) {
 
-    db.Article.find({}).populate("comments").then(function (dbArticles) {
+    db.Article.find({}).populate("comments").then(function (all) {
 
-        res.json(dbArticles);
+        if (all.length === 0) {
+
+            res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
+
+        } else {
+
+            res.render("index", all);
+
+        }
 
     }).catch(function (err) {
 
