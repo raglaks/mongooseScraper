@@ -29,9 +29,7 @@ $(document).ready(function() {
 
             }).then(function (data) {
 
-                // window.location.reload();
-
-                console.log(data);
+                window.location.reload();
 
             });
 

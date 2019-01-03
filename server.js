@@ -235,8 +235,6 @@ app.get("/populated", function (req, res) {
 //route to edit comment
 app.post("/edComm", function (req, res) {
 
-    //{ _id: req.body.article }, { $push: { comments: dbComm._id } }, { new: true }
-
     db.Comment.findOneAndUpdate({_id: req.body.id}, {title: req.body.title, body: req.body.comment}).then(function (all) {
 
         res.send(all);
