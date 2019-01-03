@@ -6,6 +6,8 @@ $(document).ready(function() {
 
         console.log(event.target.id);
 
+        $("#edel").modal("toggle");
+
     });
 
     $(".comm").on("click", function(event) {
