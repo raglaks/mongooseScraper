@@ -4,9 +4,36 @@ $(document).ready(function() {
 
         event.preventDefault();
 
-        console.log(event.target.id);
+        let currId = event.target.id;
 
         $("#edel").modal("toggle");
+
+        $("#edEd").on("click", function (event) {
+
+            event.preventDefault();
+
+            let resObj = {};
+
+            let edTitle = $("#edTitle").val().trim();
+
+            let edComm = $("#edComm").val().trim();
+
+            resObj.title = edTitle;
+            resObj.comment = edComm;
+            resObj.id = currId;
+
+            $.ajax("/edComm", {
+
+                type: "POST",
+                data: resObj
+
+            }).then(function (data) {
+
+                window.location.reload();
+
+            });
+
+        });
 
     });
 
@@ -27,8 +54,6 @@ $(document).ready(function() {
             let inTitle = $("#title").val().trim();
 
             let inComment = $("#comment").val().trim();
-
-            console.log(title, comment, currId);
 
             resObj.title = inTitle;
             resObj.comment = inComment;
