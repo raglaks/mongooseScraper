@@ -31,11 +31,17 @@
             <a href={{url}} target="_blank">{{headline}}</a>
             <p>{{desc}}<button type="button" class="btn btn-info comm" id={{_id}}>Comment</button></p>
 
-            {{#each comments}}
+            {{#if this.comments}}
 
-            <p>{{title}}: {{body}}</p>
+            <p><strong>Comments:</strong></p>
+
+            {{#each this.comments}}
+
+            <p><strong>{{title}}:</strong> {{body}}</p>
 
             {{/each}}
+
+            {{/if}}
 
             {{/if}}
 

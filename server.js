@@ -112,29 +112,38 @@ function mongoEnt(resObj) {
 
 app.get("/all", function (req, res) {
 
+    //method to find all articles in Article
     db.Article.find({}).then(function (all) {
 
+        //if statement to check if db is empty
         if (all.length === 0) {
 
             res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
 
         } else {
 
+            //then for each object in db array check if comments array is empty
             all.forEach(element => {
 
+                //if not empty then iterate through comments array
                 if (element.comments.length !== 0) {
 
                     let commArr = element.comments;
 
                     commArr.forEach(element => {
 
+                        console.log(`ELEMENT IS: ${element}`);
+
+                        //use comment association ID in Article DB to find corresponding comments in Comment DB
                         db.Comment.find({ _id: element }).then(function (comms) {
 
-                            comms.forEach(element => {
+                            console.log(`COMMS: ${comms}`);
 
-                                console.log(`TITLE: ${element.title}\nCOMM: ${element.body}`);
+                            // comms.forEach(element => {
+
+                            //     console.log(`TITLE: ${element.title}\nCOMM: ${element.body}`);
                                 
-                            });
+                            // });
 
                         });
 
@@ -211,7 +220,7 @@ app.get("/populated", function (req, res) {
 
         } else {
 
-            res.json(all);
+            res.render("index", all);
 
         }
 
