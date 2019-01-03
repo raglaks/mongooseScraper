@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+    $(".delComm").on("click", function (event) {
+
+        event.preventDefault();
+
+        console.log(event.target.id);
+
+    });
+
     $(".comm").on("click", function(event) {
 
         event.preventDefault();
