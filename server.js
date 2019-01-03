@@ -99,7 +99,6 @@ function mongoEnt(resObj) {
 
     db.Article.create(resObj).then(function (dbEntries) {
 
-        //console.log(dbEntries);
         console.log("SUCCESSFULLY SCRAPED AND SAVED.");
 
     }).catch(function (err) {
@@ -110,56 +109,56 @@ function mongoEnt(resObj) {
 
 }
 
-app.get("/all", function (req, res) {
+// app.get("/all", function (req, res) {
 
-    //method to find all articles in Article
-    db.Article.find({}).then(function (all) {
+//     //method to find all articles in Article
+//     db.Article.find({}).then(function (all) {
 
-        //if statement to check if db is empty
-        if (all.length === 0) {
+//         //if statement to check if db is empty
+//         if (all.length === 0) {
 
-            res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
+//             res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
 
-        } else {
+//         } else {
 
-            //then for each object in db array check if comments array is empty
-            all.forEach(element => {
+//             //then for each object in db array check if comments array is empty
+//             all.forEach(element => {
 
-                //if not empty then iterate through comments array
-                if (element.comments.length !== 0) {
+//                 //if not empty then iterate through comments array
+//                 if (element.comments.length !== 0) {
 
-                    let commArr = element.comments;
+//                     let commArr = element.comments;
 
-                    commArr.forEach(element => {
+//                     commArr.forEach(element => {
 
-                        console.log(`ELEMENT IS: ${element}`);
+//                         console.log(`ELEMENT IS: ${element}`);
 
-                        //use comment association ID in Article DB to find corresponding comments in Comment DB
-                        db.Comment.find({ _id: element }).then(function (comms) {
+//                         //use comment association ID in Article DB to find corresponding comments in Comment DB
+//                         db.Comment.find({ _id: element }).then(function (comms) {
 
-                            console.log(`COMMS: ${comms}`);
+//                             console.log(`COMMS: ${comms}`);
 
-                            // comms.forEach(element => {
+//                             // comms.forEach(element => {
 
-                            //     console.log(`TITLE: ${element.title}\nCOMM: ${element.body}`);
+//                             //     console.log(`TITLE: ${element.title}\nCOMM: ${element.body}`);
                                 
-                            // });
+//                             // });
 
-                        });
+//                         });
 
-                    });
+//                     });
 
-                }
+//                 }
 
-            });
+//             });
 
-            res.render("index", all);
+//             res.render("index", all);
 
-        }
+//         }
 
-    });
+//     });
 
-});
+// });
 
 //route to delete all articles
 app.get("/darts", function (req, res) {
@@ -209,8 +208,8 @@ app.post("/comment", function (req, res) {
 
 });
 
-//route for populating articles with comments
-app.get("/populated", function (req, res) {
+//route for viewing all articles populated with comments
+app.get("/all", function (req, res) {
 
     db.Article.find({}).populate("comments").then(function (all) {
 
