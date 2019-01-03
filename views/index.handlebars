@@ -39,6 +39,56 @@
 
             <p><strong>{{title}}:</strong> {{body}} <button type="button" class="btn btn-outline-warning delComm" id={{_id}}>Edit/Delete</button></p>
 
+            <div id="edel" class="modal fade text-center" role="dialog">
+
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+
+                            <h3 class="modal-title"><strong>{{title}}</strong></h3>
+
+                        </div>
+
+                        <div class="modal-body">
+
+                            <form>
+
+                                <div class="form-group">
+
+                                    <textarea class="form-control" id="edelTitle" rows="1">{{title}}</textarea>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <textarea class="form-control" id="edelComm" rows="3">{{body}}</textarea>
+
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" id="edelEd">Edit</button>
+
+                                <button type="submit" class="btn btn-danger" id="edelDel">Delete</button>
+
+                            </form>
+
+                            <br>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
             {{/each}}
 
             {{/if}}
@@ -103,7 +153,7 @@
 
     </div>
 
-    <div id="edel" class="modal fade text-center" role="dialog">
+    {{!-- <div id="edel" class="modal fade text-center" role="dialog">
 
         <div class="modal-dialog">
 
@@ -149,6 +199,6 @@
 
         </div>
 
-    </div>
+    </div> --}}
 
 </div>
