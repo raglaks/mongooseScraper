@@ -109,57 +109,6 @@ function mongoEnt(resObj) {
 
 }
 
-// app.get("/all", function (req, res) {
-
-//     //method to find all articles in Article
-//     db.Article.find({}).then(function (all) {
-
-//         //if statement to check if db is empty
-//         if (all.length === 0) {
-
-//             res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
-
-//         } else {
-
-//             //then for each object in db array check if comments array is empty
-//             all.forEach(element => {
-
-//                 //if not empty then iterate through comments array
-//                 if (element.comments.length !== 0) {
-
-//                     let commArr = element.comments;
-
-//                     commArr.forEach(element => {
-
-//                         console.log(`ELEMENT IS: ${element}`);
-
-//                         //use comment association ID in Article DB to find corresponding comments in Comment DB
-//                         db.Comment.find({ _id: element }).then(function (comms) {
-
-//                             console.log(`COMMS: ${comms}`);
-
-//                             // comms.forEach(element => {
-
-//                             //     console.log(`TITLE: ${element.title}\nCOMM: ${element.body}`);
-                                
-//                             // });
-
-//                         });
-
-//                     });
-
-//                 }
-
-//             });
-
-//             res.render("index", all);
-
-//         }
-
-//     });
-
-// });
-
 //route to delete all articles
 app.get("/darts", function (req, res) {
 
@@ -249,9 +198,15 @@ app.post("/edComm", function (req, res) {
 //route to delete comment
 app.post("/delComm", function (req, res) {
 
-    db.Comment.deleteOne({_id: req.body.id}).then(function (all) {
+    let id = req.body.id
 
-        res.render("index", all);
+    db.Comment.deleteOne({_id: id}).then(function (all) {
+
+        db.Article.findOneAndDelete({comments: {$pull: {id}}}).then(function (all) {
+
+            res.render("index", all);
+
+        });
 
     }).catch(function (err) {
 
@@ -264,7 +219,7 @@ app.post("/delComm", function (req, res) {
 //route to view all articles (DEV)
 app.get("/articles", function (req, res) {
 
-    db.Article.find({}).then(function (allArts) {a
+    db.Article.find({}).then(function (allArts) {
 
         res.json(allArts);
 
