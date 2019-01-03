@@ -237,7 +237,22 @@ app.post("/edComm", function (req, res) {
 
     db.Comment.findOneAndUpdate({_id: req.body.id}, {title: req.body.title, body: req.body.comment}).then(function (all) {
 
-        res.send(all);
+        res.render("index", all);
+
+    }).catch(function (err) {
+
+        res.send(err);
+
+    });
+
+});
+
+//route to delete comment
+app.post("/delComm", function (req, res) {
+
+    db.Comment.deleteOne({_id: req.body.id}).then(function (all) {
+
+        res.render("index", all);
 
     }).catch(function (err) {
 
