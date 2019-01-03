@@ -35,6 +35,27 @@ $(document).ready(function() {
 
         });
 
+        $("#eDel").on("click", function (event) {
+
+            event.preventDefault();
+
+            let resObj = {};
+
+            resObj.id = currId;
+
+            $.ajax("/delComm", {
+
+                type: "POST",
+                data: resObj
+
+            }).then(function (data) {
+
+                window.location.reload();
+
+            });
+
+        });
+
     });
 
     $(".comm").on("click", function(event) {
