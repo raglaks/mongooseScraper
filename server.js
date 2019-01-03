@@ -200,7 +200,7 @@ app.post("/comment", function (req, res) {
 
 });
 
-//route for populating articles with books
+//route for populating articles with comments
 app.get("/populated", function (req, res) {
 
     db.Article.find({}).populate("comments").then(function (all) {
@@ -211,7 +211,7 @@ app.get("/populated", function (req, res) {
 
         } else {
 
-            res.render("index", all);
+            res.json(all);
 
         }
 
@@ -226,7 +226,7 @@ app.get("/populated", function (req, res) {
 //route to view all articles (DEV)
 app.get("/articles", function (req, res) {
 
-    db.Article.find({}).then(function (allArts) {
+    db.Article.find({}).then(function (allArts) {a
 
         res.json(allArts);
 
