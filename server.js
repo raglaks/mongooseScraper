@@ -202,9 +202,9 @@ app.post("/delComm", function (req, res) {
 
     db.Comment.deleteOne({_id: id}).then(function (all) {
 
-        db.Article.findOneAndDelete({$pull: {comments: { $in: [id]} }}).then(function (all) {
+        db.Article.updateOne({}, { $pull: { comments: id } }).then(function (allA) {
 
-            res.render("index", all);
+            res.render("index", allA);
 
         });
 
