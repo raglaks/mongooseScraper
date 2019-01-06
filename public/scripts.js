@@ -18,20 +18,28 @@ $(document).ready(function () {
 
             let edComm = $("#edComm").val().trim();
 
-            resObj.title = edTitle;
-            resObj.comment = edComm;
-            resObj.id = currId;
+            if (edTitle !== "" && edComm !== "") {
 
-            $.ajax("/edComm", {
+                resObj.title = edTitle;
+                resObj.comment = edComm;
+                resObj.id = currId;
 
-                type: "POST",
-                data: resObj
+                $.ajax("/edComm", {
 
-            }).then(function (data) {
+                    type: "POST",
+                    data: resObj
 
-                window.location.reload();
+                }).then(function (data) {
 
-            });
+                    window.location.reload();
+
+                });
+
+            } else {
+
+                $("#eWarn").text("CANNOT SUBMIT EMPTY STRINGS. PLEASE INSERT NAME AND TITLE.");
+
+            }
 
         });
 
