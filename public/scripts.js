@@ -1,17 +1,32 @@
 $(document).ready(function () {
 
+    $("#clearAll").on("click", function (event) {
+
+        event.preventDefault();
+
+        $.ajax("/scrape", {
+
+            type: "GET"
+
+        }).then(function (data) {
+
+            console.log(data);
+
+        });
+
+    })
+
     $("#scrape").on("click", function (event) {
 
         event.preventDefault();
 
         $.ajax("/scrape", {
 
-            type: "GET",
-            data: resObj
+            type: "GET"
 
         }).then(function (data) {
 
-            //window.location.reload();
+            console.log(data);
 
         });
 

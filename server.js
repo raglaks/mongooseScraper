@@ -32,7 +32,7 @@ app.get("/", function (req, res) {
 //endpoint to scrape AP page
 app.get("/scrape", function (req, res) {
 
-    //acios request to init scrape
+    //axios request to init scrape
     axios.request({
 
         url: "https://apnews.com/apf-intlnews",
@@ -77,10 +77,6 @@ app.get("/scrape", function (req, res) {
 
         });
 
-    }).catch((err) => {
-
-        throw err;
-
     }).then(() => {
 
         scraped.forEach(element => {
@@ -95,9 +91,11 @@ app.get("/scrape", function (req, res) {
 
         });
 
-        //res.send("scraped", all);
+        res.send("OK");
 
-        dispAll();
+    }).catch((err) => {
+
+        throw err;
 
     });
 
@@ -107,7 +105,7 @@ function mongoEnt(resObj) {
 
     db.Article.create(resObj).then(function (dbEntries) {
 
-        console.log("SUCCESSFULLY SCRAPED AND SAVED.");
+        dispAll();
 
     }).catch(function (err) {
 
@@ -120,25 +118,21 @@ function mongoEnt(resObj) {
 function dispAll() {
 
     //route for viewing all articles populated with comments
-    app.get("/all", function (req, res) {
+    db.Article.find({}).populate("comments").then(function (all) {
 
-        db.Article.find({}).populate("comments").then(function (all) {
+        if (all.length === 0) {
 
-            if (all.length === 0) {
+            res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
 
-                res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
+        } else {
 
-            } else {
+            res.render("scraped", all);
 
-                res.render("scraped", all);
+        }
 
-            }
+    }).catch(function (err) {
 
-        }).catch(function (err) {
-
-            res.json(err);
-
-        });
+        res.json(err);
 
     });
 
@@ -151,9 +145,21 @@ app.get("/darts", function (req, res) {
 
     db.Article.deleteMany({}, function (deleted) {
 
-        res.send("ALL SCRAPED ARTICLES CLEARED. HIT SCRAPE ENDPOINT FOR NEW BATCH.");
+        //res.send("ALL SCRAPED ARTICLES CLEARED. HIT SCRAPE ENDPOINT FOR NEW BATCH.");
 
-    });
+    }).then(function () {
+
+        db.Comment.deleteMany({}, function (deleted) {
+
+            res.send("DELETED.");
+    
+        });
+
+    }).catch((err) => {
+
+        res.send(error);
+
+    })
 
 });
 
