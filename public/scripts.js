@@ -12,6 +12,8 @@ $(document).ready(function () {
 
             if (de === "DELETED") {
 
+                $("#cleared").mess("");
+
                 $("#cleared").text("ARTICLES SUCCESSFULLY DELETED.");
 
             }
@@ -31,6 +33,8 @@ $(document).ready(function () {
         }).then(function (data) {
 
             if (data === "OK") {
+
+                $("#cleared").text("");
 
                 $("#mess").text("ARTICLES SUCCESSFULLY SCRAPED. CLICK ON VIEW ALL.");
 
