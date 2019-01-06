@@ -23,6 +23,12 @@ app.set("view engine", "handlebars");
 
 mongoose.connect("mongodb://localhost/APscrape", { useNewUrlParser: true });
 
+app.get("/", function (req, res) {
+
+    res.send("index");
+
+});
+
 //endpoint to scrape AP page
 app.get("/scrape", function (req, res) {
 
