@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    $("#scrape").on("click", function (event) {
+
+        event.preventDefault();
+
+        
+
+    })
+
     $(".delComm").on("click", function (event) {
 
         event.preventDefault();

@@ -89,7 +89,9 @@ app.get("/scrape", function (req, res) {
 
         });
 
-        res.send("SUCCESSFULLY SCRAPED AND SAVED.");
+        //res.send("scraped", all);
+
+        dispAll();
 
     });
 
@@ -104,6 +106,33 @@ function mongoEnt(resObj) {
     }).catch(function (err) {
 
         throw err;
+
+    });
+
+}
+
+function dispAll() {
+
+    //route for viewing all articles populated with comments
+    app.get("/all", function (req, res) {
+
+        db.Article.find({}).populate("comments").then(function (all) {
+
+            if (all.length === 0) {
+
+                res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
+
+            } else {
+
+                res.render("scraped", all);
+
+            }
+
+        }).catch(function (err) {
+
+            res.json(err);
+
+        });
 
     });
 
@@ -157,33 +186,10 @@ app.post("/comment", function (req, res) {
 
 });
 
-//route for viewing all articles populated with comments
-app.get("/all", function (req, res) {
-
-    db.Article.find({}).populate("comments").then(function (all) {
-
-        if (all.length === 0) {
-
-            res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
-
-        } else {
-
-            res.render("index", all);
-
-        }
-
-    }).catch(function (err) {
-
-        res.json(err);
-
-    });
-
-});
-
 //route to edit comment
 app.post("/edComm", function (req, res) {
 
-    db.Comment.findOneAndUpdate({_id: req.body.id}, {title: req.body.title, body: req.body.comment}).then(function (all) {
+    db.Comment.findOneAndUpdate({ _id: req.body.id }, { title: req.body.title, body: req.body.comment }).then(function (all) {
 
         res.render("index", all);
 
@@ -200,7 +206,7 @@ app.post("/delComm", function (req, res) {
 
     let id = req.body.id
 
-    db.Comment.deleteOne({_id: id}).then(function (all) {
+    db.Comment.deleteOne({ _id: id }).then(function (all) {
 
         db.Article.updateOne({}, { $pull: { comments: id } }).then(function (allA) {
 
