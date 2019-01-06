@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     $(".delComm").on("click", function (event) {
 
@@ -58,7 +58,7 @@ $(document).ready(function() {
 
     });
 
-    $(".comm").on("click", function(event) {
+    $(".comm").on("click", function (event) {
 
         event.preventDefault();
 
@@ -66,7 +66,7 @@ $(document).ready(function() {
 
         $("#results-modal").modal("toggle");
 
-        $("#sub").on("click", function(event) {
+        $("#sub").on("click", function (event) {
 
             event.preventDefault();
 
@@ -76,20 +76,28 @@ $(document).ready(function() {
 
             let inComment = $("#comment").val().trim();
 
-            resObj.title = inTitle;
-            resObj.comment = inComment;
-            resObj.article = currId;
+            if (inTitle !== "" && inComment !== "") {
 
-            $.ajax("/comment", {
+                resObj.title = inTitle;
+                resObj.comment = inComment;
+                resObj.article = currId;
 
-                type: "POST",
-                data: resObj
+                $.ajax("/comment", {
 
-            }).then(function (data) {
+                    type: "POST",
+                    data: resObj
 
-                window.location.reload();
+                }).then(function (data) {
 
-            });
+                    window.location.reload();
+
+                });
+
+            } else {
+
+                $("#warn").text("CANNOT SUBMIT EMPTY STRINGS. PLEASE INSERT NAME AND TITLE.");
+
+            }
 
         });
 
