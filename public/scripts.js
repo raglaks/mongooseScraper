@@ -4,7 +4,16 @@ $(document).ready(function () {
 
         event.preventDefault();
 
-        
+        $.ajax("/scrape", {
+
+            type: "GET",
+            data: resObj
+
+        }).then(function (data) {
+
+            //window.location.reload();
+
+        });
 
     })
 

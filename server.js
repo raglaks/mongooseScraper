@@ -25,7 +25,7 @@ mongoose.connect("mongodb://localhost/APscrape", { useNewUrlParser: true });
 
 app.get("/", function (req, res) {
 
-    res.send("index");
+    res.render("index");
 
 });
 
