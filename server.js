@@ -95,7 +95,7 @@ app.get("/scrape", function (req, res) {
 
     }).catch((err) => {
 
-        throw err;
+        console.log(err);
 
     });
 
@@ -103,11 +103,7 @@ app.get("/scrape", function (req, res) {
 
 function mongoEnt(resObj) {
 
-    db.Article.create(resObj).then(function (dbEntries) {
-
-        dispAll();
-
-    }).catch(function (err) {
+    db.Article.create(resObj).then(function (dbEntries) {}).catch(function (err) {
 
         throw err;
 
@@ -151,7 +147,7 @@ app.get("/darts", function (req, res) {
 
         db.Comment.deleteMany({}, function (deleted) {
 
-            res.send("DELETED.");
+            res.send("DELETED");
     
         });
 
@@ -159,7 +155,7 @@ app.get("/darts", function (req, res) {
 
         res.send(error);
 
-    })
+    });
 
 });
 

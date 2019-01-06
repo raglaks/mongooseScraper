@@ -4,13 +4,17 @@ $(document).ready(function () {
 
         event.preventDefault();
 
-        $.ajax("/scrape", {
+        $.ajax("/darts", {
 
             type: "GET"
 
-        }).then(function (data) {
+        }).then(function (de) {
 
-            console.log(data);
+            if (de === "DELETED") {
+
+                $("#cleared").text("ARTICLES SUCCESSFULLY DELETED.");
+
+            }
 
         });
 
@@ -26,7 +30,11 @@ $(document).ready(function () {
 
         }).then(function (data) {
 
-            console.log(data);
+            if (data === "OK") {
+
+                $("#mess").text("ARTICLES SUCCESSFULLY SCRAPED. CLICK ON VIEW ALL.");
+
+            }
 
         });
 
