@@ -12,7 +12,7 @@ $(document).ready(function () {
 
             if (resp === "empty") {
 
-
+                $("#em").text("PLEASE CLICK SCRAPE, YOUR LIST IS CURRENTLY EMPTY.");
 
             }
 
