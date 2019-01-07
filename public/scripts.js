@@ -1,5 +1,25 @@
 $(document).ready(function () {
 
+    $("#viewAll").on("click", function (event) {
+
+        event.preventDefault();
+
+        $.ajax("/all", {
+
+            type: "GET"
+
+        }).then((resp) {
+
+            if (resp === "empty") {
+
+
+
+            }
+
+        });
+
+    })
+
     $("#clearAll").on("click", function (event) {
 
         event.preventDefault();
@@ -12,7 +32,7 @@ $(document).ready(function () {
 
             if (de === "DELETED") {
 
-                $("#cleared").mess("");
+                $("#mess").text("");
 
                 $("#cleared").text("ARTICLES SUCCESSFULLY DELETED.");
 

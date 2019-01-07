@@ -111,14 +111,14 @@ function mongoEnt(resObj) {
 
 }
 
-function dispAll() {
+app.get("all", function (req, res) {
 
     //route for viewing all articles populated with comments
     db.Article.find({}).populate("comments").then(function (all) {
 
         if (all.length === 0) {
 
-            res.send("PLEASE HIT SCRAPE ENDPOINT TO SAVE AND VIEW ARTICLES HERE.");
+            res.send("empty");
 
         } else {
 
@@ -132,7 +132,7 @@ function dispAll() {
 
     });
 
-}
+});
 
 //route to delete all articles
 app.get("/darts", function (req, res) {
@@ -154,17 +154,6 @@ app.get("/darts", function (req, res) {
     }).catch((err) => {
 
         res.send(error);
-
-    });
-
-});
-
-//route to delete all comments
-app.get("/dcomms", function (req, res) {
-
-    db.Comment.deleteMany({}, function (deleted) {
-
-        res.send("ALL COMMENTS CLEARED.");
 
     });
 
