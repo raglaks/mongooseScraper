@@ -23,7 +23,7 @@ app.set("view engine", "handlebars");
 
 mongoose.connect("mongodb://localhost/APscrape", { useNewUrlParser: true });
 
-app.get("/", function (req, res) {
+app.get("/home", function (req, res) {
 
     res.render("index");
 
@@ -135,7 +135,7 @@ app.get("/all", function (req, res) {
 });
 
 //route to delete all articles
-app.get("/darts", function (req, res) {
+app.delete("/darts", function (req, res) {
 
     scraped = [];
 
@@ -153,7 +153,7 @@ app.get("/darts", function (req, res) {
 
     }).catch((err) => {
 
-        res.send(error);
+        res.send(err);
 
     });
 

@@ -1,8 +1,18 @@
 $(document).ready(function () {
 
+    $("#home").on("click", function (event) {
+
+        event.preventDefault();
+
+        window.location.href = "/home";
+
+    });
+
     $("#viewAll").on("click", function (event) {
 
         event.preventDefault();
+
+        console.log(event);
 
         $.ajax("/all", {
 
@@ -10,15 +20,25 @@ $(document).ready(function () {
 
         }).then((resp) => {
 
+            console.log(resp);
+
             if (resp === "empty") {
 
+                $("#mess").text("");
+
+                $("#cleared").text("");
+
                 $("#em").text("PLEASE CLICK SCRAPE, YOUR LIST IS CURRENTLY EMPTY.");
+
+            } else {
+
+                window.location.href = "/all";
 
             }
 
         });
 
-    })
+    });
 
     $("#clearAll").on("click", function (event) {
 
@@ -26,13 +46,15 @@ $(document).ready(function () {
 
         $.ajax("/darts", {
 
-            type: "GET"
+            type: "DELETE"
 
         }).then(function (de) {
 
             if (de === "DELETED") {
 
                 $("#mess").text("");
+
+                $("#em").text("");
 
                 $("#cleared").text("ARTICLES SUCCESSFULLY DELETED.");
 
@@ -53,6 +75,8 @@ $(document).ready(function () {
         }).then(function (data) {
 
             if (data === "OK") {
+
+                $("#em").text("");
 
                 $("#cleared").text("");
 
