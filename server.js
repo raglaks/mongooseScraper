@@ -8,7 +8,7 @@ let scraped = [];
 
 const db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 const app = express();
 
