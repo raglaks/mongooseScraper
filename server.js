@@ -111,7 +111,7 @@ function mongoEnt(resObj) {
 
 }
 
-app.get("all", function (req, res) {
+app.get("/all", function (req, res) {
 
     //route for viewing all articles populated with comments
     db.Article.find({}).populate("comments").then(function (all) {

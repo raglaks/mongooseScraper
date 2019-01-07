@@ -8,7 +8,7 @@ $(document).ready(function () {
 
             type: "GET"
 
-        }).then((resp) {
+        }).then((resp) => {
 
             if (resp === "empty") {
 
